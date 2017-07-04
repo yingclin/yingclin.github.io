@@ -7,7 +7,7 @@
 <a id="more"></a>
 <h2 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h2><ul>
 <li><a href="/RESTFul-API-Best-Practice.html">RESTFul API 最佳實踐</a></li>
-<li><a href="/asp-net-web-api-restful-best-practice-1.html">ASP.NET Web API 最佳實踐專案整合 - 自帶篇</a></li>
+<li><a href="/asp-net-web-api-restful-best-practice-1.html">ASP.NET Web API 最佳實踐專案整合 - 內建篇</a></li>
 <li><a href="/asp-net-web-api-restful-best-practice-2.html">ASP.NET Web API 最佳實踐專案整合 - 套件篇</a></li>
 <li><a href="/asp-net-web-api-restful-best-practice-3.html">ASP.NET Web API 最佳實踐專案整合 - 客製篇</a></li>
 </ul>
@@ -34,7 +34,7 @@
 <p>要更完善的儲存機制，CacheCow 有提供 SQLServer、Memcached、Redis、MongoDB、RavenDB、ElasticSearch、Azure Caching 的儲存套件。</p>
 <h3 id="以-SQLServer-儲存快取資料"><a href="#以-SQLServer-儲存快取資料" class="headerlink" title="以 SQLServer 儲存快取資料"></a>以 SQLServer 儲存快取資料</h3><p>套件：<code>Install-Package CacheCow.Server.EntityTagStore.SqlServer</code></p>
 <p>修改 <code>WebApiConfig.cs</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var connectionString = ConfigurationManager.ConnectionStrings[&quot;ConnectionName&quot;].ConnectionString;</span><br><span class="line">var eTagStore = new SqlServerEntityTagStore(connectionString);</span><br><span class="line">var cacheHandler = new CachingHandler(config, eTagStore);</span><br><span class="line">config.MessageHandlers.Add(cacheHandler);</span><br></pre></td></tr></table></figure></p>
-</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="https://yingclin.github.io/asp-net-web-api-restful-best-practice-2.html" data-id="cj4ppkx030008xkqb3hmird4z" class="article-share-link">分享至</a><div class="tags"><a href="/tags/RESTFul/">RESTFul</a><a href="/tags/API/">API</a><a href="/tags/ASP-NET/">ASP.NET</a><a href="/tags/Web-API/">Web API</a></div><div class="post-nav"><a href="/asp-net-web-api-restful-best-practice-1.html" class="next">ASP.NET Web API 最佳實踐專案整合 - 自帶篇</a></div><div id="disqus_thread"><script>var disqus_shortname = 'ycl-breadcrumbs';
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="https://yingclin.github.io/asp-net-web-api-restful-best-practice-2.html" data-id="cj4ppmybf000640qbabrghq6j" class="article-share-link">分享至</a><div class="tags"><a href="/tags/RESTFul/">RESTFul</a><a href="/tags/API/">API</a><a href="/tags/ASP-NET/">ASP.NET</a><a href="/tags/Web-API/">Web API</a></div><div class="post-nav"><a href="/asp-net-web-api-restful-best-practice-1.html" class="next">ASP.NET Web API 最佳實踐專案整合 - 自帶篇</a></div><div id="disqus_thread"><script>var disqus_shortname = 'ycl-breadcrumbs';
 var disqus_identifier = 'asp-net-web-api-restful-best-practice-2.html';
 var disqus_title = 'ASP.NET Web API 最佳實踐專案整合 - 套件篇';
 var disqus_url = 'https://yingclin.github.io/asp-net-web-api-restful-best-practice-2.html';
