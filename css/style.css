@@ -7,7 +7,8 @@
  * @link http://chopstack.com
  */
 body {
-  background-color: #eeeeee;
+  background-color: #ffffff;
+  /* #eeeeee */
   color: #444;
   /*font-family: "TIBch", "Classic Grotesque W01", "Helvetica Neue", Arial, "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "WenQuanYi Micro Hei", SimSun, sans-serif;*/
   font-family: "Proxima Nova Regular","Segoe UI",Roboto,"Droid Sans","Helvetica Neue",Arial, "文泉驛正黑", "WenQuanYi Zen Hei", "儷黑 Pro", "LiHei Pro", "微軟正黑體", "Microsoft JhengHei", "標楷體", DFKai-SB, sans-serif;
@@ -858,7 +859,8 @@ pre {
 /* syntax highlight*/
 figure.highlight,
 .codeblock {
-  background: #f7f8f8;
+  background: #f0f0f0;
+  /* #f7f8f8 */
   margin: 10px 0;
   line-height: 1.2em;
   color: #333;
