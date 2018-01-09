@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>ASP.NET Core 2.0 開發入門 | 想不起來而已</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.1"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/4.1.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">ASP.NET Core 2.0 開發入門</h1><a id="logo" href="/.">想不起來而已</a><p class="description">浪漫工頭的麵包屑</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">ASP.NET Core 2.0 開發入門</h1><div class="post-meta">Jan 9, 2018<span> | </span><span class="category"><a href="/categories/construction/">軟體構建</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><a data-disqus-identifier="2017/aspnetcode-2.0-toturial.html" href="/2017/aspnetcode-2.0-toturial.html#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>本文是針對已有 ASP.NET MVC 開發經驗的朋友所做的 ASP.NET Core 入門介紹，著重在實務面上，不會對一些已知名詞如 MVC、Controller 等做詳細介紹。</p>
+<p>ASP.NET Core 聽起來像是 ASP.NET 的後續版本而已，事實不然，它是基於全新的 .NET Core 所發展出來的新網站開發架構，除了使用情境承襲了 ASP.NET 外，整個裡子都是新的。</p>
+<p>要對 .NET Core 有基本認識，可以參考這篇：<a href="https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/" title=".NET Core 2.0 來了" target="_blank" rel="external">準備就緒的 .NET Core 2.0 來了</a>。</p>
+<a id="more"></a>
+<h2 id="ASP-NET-Core-簡介"><a href="#ASP-NET-Core-簡介" class="headerlink" title="ASP.NET Core 簡介"></a>ASP.NET Core 簡介</h2><p>參考官方的特色說明，先對 ASP.NET Core 有個基本的認識。</p>
+<p>ASP.NET Core 是一種跨平台且高效能的開放原始碼程式架構，用於建置現代化、雲端式、網際網路連線的應用程式。 利用 ASP.NET Core，可以：</p>
+<ul>
+<li>建置 Web 應用程式和服務、IoT 應用程式，以及行動後端。</li>
+<li>在 Windows、macOS 和 Linux 上開發及執行。</li>
+<li>部署到一般伺服器或雲端。</li>
+<li>在 .NET Core 或 .NET Framework 上執行。</li>
+</ul>
+<p>ASP.NET Core 是 ASP.NET 的重新設計，提供精簡且模組化的架構，提供下列優點：</p>
+<ul>
+<li>提供建置 Web UI 和 Web API 的統一環境 (基於相同的 Controller)。</li>
+<li>整合現代化的用戶端架構和開發工作流程。</li>
+<li>雲端就緒、以運行環境為基礎的組態系統。</li>
+<li>內建的相依性插入。</li>
+<li>基於 Open Web Interface for .NET (OWIN) 的全新起始及執行環境。輕量型、高效能且模組化的 HTTP 要求管線。</li>
+<li>能夠在 IIS 上裝載，或自我裝載於自己的處理序。</li>
+<li>可以在 .NET Core 上執行，其支援真正的並存應用程式版本控制。</li>
+<li>可簡化現代網頁程式開發的工具。</li>
+<li>能夠在 Windows、macOS 和 Linux 上建置並執行。</li>
+<li>開放原始碼和社群導向。</li>
+<li>ASP.NET Core 完全以 NuGet 套件的形式提供。 這可讓您最佳化您的應用程式，使其只包含需要的 NuGet 套件。 應用程式介面區較小的優點包括更嚴密的安全性、減少維護工作，以及提升效能。</li>
+<li>執行速度快。</li>
+<li>是 ASP.NET 的未來</li>
+</ul>
+<h3 id="開發工具"><a href="#開發工具" class="headerlink" title="開發工具"></a>開發工具</h3><p>Visual Studio 2017 對最新版本的 .NET Core 及 .NET Standard 有完整的支援，在 windows 上做開發還是建議用 Visual Studio。</p>
+<p>Visual Studio Code 則提供 Windows、macOS 和 Linux 上皆可使用的輕量開發環境。</p>
+<h2 id="ASP-NET-Core-基礎"><a href="#ASP-NET-Core-基礎" class="headerlink" title="ASP.NET Core 基礎"></a>ASP.NET Core 基礎</h2><p>全新的 ASP.NET Core 新增了以往沒有的核心功能, 像是 Dependency injection，執行環境的切換，Logging 等，讓平台功能更完備。</p>
+<h3 id="Web-App-Startup"><a href="#Web-App-Startup" class="headerlink" title="Web App Startup"></a>Web App Startup</h3><p>建一個新 ASP.NET Core 專案，來看看新的專案內容有什麼。</p>
+<p>打開 Visual Studio 2017 建立新專案 &gt; Visual C# &gt; Web &gt; ASP.NET Core Web 應用程式<br>選擇 Web 應用程式 (MVC)，按下 ［確定］ 建立專案。</p>
+<p><img src="http://c1.staticflickr.com/5/4544/38206165456_a76af28845_b.jpg" alt="新建專案"></p>
+<p>ASP.NET Core 的專案內容和 ASP.NET 有很大不同。<br>wwwroot 目錄存放全部的靜態檔。根目錄下有一些主要檔案：</p>
+<ul>
+<li>Program.cs – 程式執行的進入點。ASP.NET Core 本身已經高度模組及獨立化了，它直接就以 Console 的方式來做自我裝載 (像是 embedded 進 console 應用中)。</li>
+<li>[Project Name].csproj - XML-based 的專案設定。放棄了最初的 project.json 改回 csproj，以和 MSBuild 能更好的協作。</li>
+<li>Startup.cs – ASP.NET Core 系統的進入點, 和 ASP.NET 時的 Global.asax 有相同效用.</li>
+<li>web.config – 可選, 就算有也沒有什麼內容了, 主要只是用來和 IIS 溝通，像是指示 IIS 用 ASP.NET Core handler 來處理 request.</li>
+</ul>
+<h3 id="Dependency-injection-依賴注入"><a href="#Dependency-injection-依賴注入" class="headerlink" title="Dependency injection 依賴注入"></a>Dependency injection 依賴注入</h3><h4 id="什麼是-dependency-injection"><a href="#什麼是-dependency-injection" class="headerlink" title="什麼是 dependency injection?"></a>什麼是 dependency injection?</h4><p>物件一旦在程式中被 new 建立，它就已經和使用它的程式碼或物件緊密耦合在一起，怎麼解決這個問題？</p>
+<p>先基於 “抽象”(Abstractions) 通常是 “介面”(interface) 來定義功能，再由平台或 DI 套件依照設定值來產生實作物件，並透過 constructor 或 method 傳給使用方(injection), 使用方不用知道實作物件的細節, 只透過介面功能來使用它.</p>
+<p>ASP.NET Core 加入的新功能之一就是內建 DI 機制。平台和元件都已基於這個機制來開發和執行，不需要再依不同的 DI 實作做整合和設定。</p>
+<h4 id="dependency-injection-的設定"><a href="#dependency-injection-的設定" class="headerlink" title="dependency injection 的設定"></a>dependency injection 的設定</h4><p>由 Startup.cs 中的 ConfigureServices(IServiceCollection services) {} 來做設定.</p>
+<p>根據物件生命週期的不同，提供了三個 method 來做元件的註冊：</p>
+<ul>
+<li>Transient – 無狀態, 每次注入都會 new 新的，services.AddTransient<iclock,clock>()</iclock,clock></li>
+<li>Scoped – 在同 request 中會重覆使用，services.AddScoped<irepository, repository="">()</irepository,></li>
+<li>Singleton – 共用同一個物件，services.AddSingleton<iapplicationcache, applicationcache="">()</iapplicationcache,></li>
+</ul>
+<p>平台有預先開發好特定功能來注入 MVC 及 Entity Framework 相關類別，如：</p>
+<ul>
+<li>services.AddMvc() – 把 ASP.NET Core MVC 的 Controllers 和 Filters 加到註冊表中。</li>
+<li>services.AddDbContext<exampledbcontext>(…) - 把 Entity Framework 的 DBContext 加到註冊表中。</exampledbcontext></li>
+</ul>
+<h4 id="dependency-injection-的使用"><a href="#dependency-injection-的使用" class="headerlink" title="dependency injection 的使用"></a>dependency injection 的使用</h4><ol>
+<li>基於 interface 定義功能並實作。</li>
+<li>在 ConfigureServices 中設定。</li>
+<li>在 constructor 中依 interface 要求注入實作物件。<br>如 <code>public HomeController(IClock clock)</code> 可取得 IClock 的實作物件。</li>
+<li>依 interface 使用功能, 如 clock.GetTime()。</li>
+</ol>
+<h3 id="Environments-執行環境"><a href="#Environments-執行環境" class="headerlink" title="Environments 執行環境"></a>Environments 執行環境</h3><p>程式開發執行至少會有 2 個以上的執行環境需求，如 開發(Development) 和 正式(Production)。</p>
+<p>ASP.NET Core 提供了新的環境設定機制，稱為 Hosting Environment Management，方便在多環境需求下做開發及部署。它預設提供了 3 個環境狀態名：Development、Staging、Production，並定義在 EnvironmentName 類別中。</p>
+<p>ASP.NET Core 經由 IHostingEnvironment 這個 interface 取得參數值，而 IHostingEnvironment 則是透過作業系統的環境變數 ASPNETCORE_ENVIRONMENT 決定環境。<br>如果值是 Development，表示在開發環境。由於是去讀環境變數，所以是在執行階段才決定，而不是在編譯時就決定了，更有機動性。IHostingEnvironment 也配合預設環境狀態名，擴充了 3 個判斷 method: IsDevelopment(), IsProduction(), IsStaging()，方便程式做判斷。</p>
+<h4 id="Visual-Studio"><a href="#Visual-Studio" class="headerlink" title="Visual Studio"></a>Visual Studio</h4><p>預設下，Visual Studio 會自動用 Development mode，設定值是位於 Properties 目錄下的launchSettings.json。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;iisSettings&quot;: &#123;</div><div class="line">    &quot;windowsAuthentication&quot;: false,</div><div class="line">    &quot;anonymousAuthentication&quot;: true,</div><div class="line">    &quot;iisExpress&quot;: &#123;</div><div class="line">      &quot;applicationUrl&quot;: &quot;http://localhost:18762/&quot;,</div><div class="line">      &quot;sslPort&quot;: 0</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  &quot;profiles&quot;: &#123;</div><div class="line">    &quot;IIS Express&quot;: &#123;</div><div class="line">      &quot;commandName&quot;: &quot;IISExpress&quot;,</div><div class="line">      &quot;launchBrowser&quot;: true,</div><div class="line">      &quot;environmentVariables&quot;: &#123;</div><div class="line">        &quot;ASPNETCORE_ENVIRONMENT&quot;: &quot;Development&quot;</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">    &quot;CoreWebApplication1&quot;: &#123;</div><div class="line">      &quot;commandName&quot;: &quot;Project&quot;,</div><div class="line">      &quot;launchBrowser&quot;: true,</div><div class="line">      &quot;environmentVariables&quot;: &#123;</div><div class="line">        &quot;ASPNETCORE_ENVIRONMENT&quot;: &quot;Development&quot;</div><div class="line">      &#125;,</div><div class="line">      &quot;applicationUrl&quot;: &quot;http://localhost:18763/&quot;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>profiles 區段包含的就是 ASP.NET Core 的伺服器實作 Kestrel 會用到的設定。<br>若要做調整，可以直接改檔案或是透過專案的 [屬性] -&gt; [偵錯] 畫面來做調整及加入新環境值。</p>
+<h4 id="IHostingEnvironment-的使用"><a href="#IHostingEnvironment-的使用" class="headerlink" title="IHostingEnvironment 的使用"></a>IHostingEnvironment 的使用</h4><p>如果程式中需要依環境做不同的處理, 可以 inject <code>IHostingEnvironment</code> 來做判斷.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// 由 constructor 取得</div><div class="line">public HomeController(IHostingEnvironment env)</div><div class="line">&#123;…&#125;</div><div class="line"></div><div class="line">// 環境判斷</div><div class="line">if(_env.IsDevelopment())</div><div class="line">&#123;…&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="Startup-class"><a href="#Startup-class" class="headerlink" title="Startup class"></a>Startup class</h4><p>Startup class 是最重要的設定入口，在不同的 Environment 下可能有不同的內容。 WebHostBuilder 的 UseStartup<startup>() 很聰明的會依照 method name + environment name 的規則去載入及叫用對應的環境實作.</startup></p>
+<h4 id="建立自己的環境值"><a href="#建立自己的環境值" class="headerlink" title="建立自己的環境值"></a>建立自己的環境值</h4><p>如果預設的 3 個環境不符合使用，可以增加自己的環境值。</p>
+<ol>
+<li>在 IHostingEnvironment 加上 extension method 如 IsTesting()。</li>
+<li>IsTesting() 中，取 IHostingEnvironment instance 的 EnvironmentName 值做判斷。</li>
+</ol>
+<h3 id="Static-files"><a href="#Static-files" class="headerlink" title="Static files"></a>Static files</h3><p>由於 Web API 不需要 static files 的服務，ASP.NET Core 預設不啟用 static files 支援。</p>
+<h4 id="啟用-Static-Files-的支援"><a href="#啟用-Static-Files-的支援" class="headerlink" title="啟用 Static Files 的支援"></a>啟用 Static Files 的支援</h4><p>利用 Microsoft.AspNetCore.StaticFiles 套件，用 OWIN 的方式啟用它：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app.UseStaticFiles();</div></pre></td></tr></table></figure></p>
+<h4 id="Single-page-application"><a href="#Single-page-application" class="headerlink" title="Single page application"></a>Single page application</h4><p>由於 SPA 的入口頁面為 html，必須在 Startup 的 Configure 中做設定：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app.UseFileServer();</div></pre></td></tr></table></figure></p>
+<p>預設支援 default.htm、default.html、index.htm 和 index.html。</p>
+<p>也可以自定檔名:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var options = new DefaultFilesOptions();</div><div class="line">options.DefaultFileNames.Clear();</div><div class="line">options.DefaultFileNames.Add(&quot;mydefault.html&quot;);</div></pre></td></tr></table></figure></p>
+<h3 id="Error-handling-and-exception-pages"><a href="#Error-handling-and-exception-pages" class="headerlink" title="Error handling and exception pages"></a>Error handling and exception pages</h3><p>ASP.NET Core 針對錯誤，提供了新機制方便開發者除錯及處理。</p>
+<h4 id="Developer-Exception-Page"><a href="#Developer-Exception-Page" class="headerlink" title="Developer Exception Page"></a>Developer Exception Page</h4><p>Microsoft.AspNetCore.Diagnostics package 提供了 <code>UseDeveloperExceptionPage()</code> middleware，當接到 Exception 時會顯示清楚完整的錯誤內容，分 4 個 tab 來分類提供資訊，如下圖所示：</p>
+<p><img src="http://c1.staticflickr.com/5/4544/38261018991_93a0de9e3f_b.jpg" alt="Developer Exception Page"></p>
+<p>啟用方式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if (env.IsDevelopment())</div><div class="line">&#123;</div><div class="line">    app.UseDeveloperExceptionPage();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="User-friendly-error-page"><a href="#User-friendly-error-page" class="headerlink" title="User-friendly error page"></a>User-friendly error page</h4><p>有 2 個 middleware 可依 http status code 設定客製的錯誤頁：</p>
+<ul>
+<li>導到靜態頁 – UseStatusCodePagesWithRedirects(“~/errors/{0}.html”);</li>
+<li>導到 MVC route - UseStatusCodePagesWithReExecute(“~/errors/{0}”);</li>
+</ul>
+<p>若不做專用頁面，平台有提供簡單的程序：<br><code>app.UseStatusCodePages();</code></p>
+<p>或是導到統一的 MVC route 做處理：<br><code>app.UseExceptionHandler(&quot;/error&quot;);</code></p>
+<h3 id="Configuration-files"><a href="#Configuration-files" class="headerlink" title="Configuration files"></a>Configuration files</h3><h4 id="appsettings-json"><a href="#appsettings-json" class="headerlink" title="appsettings.json"></a>appsettings.json</h4><p>web.config 不再用來存放 appSettings 的設定值，預設改放到 appsettings.json。</p>
+<p>前面提過，當 WebHost.CreateDefaultBuilder() 初始化時，預設會從 <code>appsettings.json</code> 和 <code>appsettings.[EnvironmentName].json</code> 載入  IConfiguration 的內容，而 appsettings.[EnvironmentName].json 只需放差異的部份即可。</p>
+<h4 id="讀取設定值"><a href="#讀取設定值" class="headerlink" title="讀取設定值"></a>讀取設定值</h4><p>以 “ : “ 做階層名稱的分隔，陣列直接用數字索引，如：0 </p>
+<p>假設有 appsettings.json ，內容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;MyConfig1&quot;: &#123;</div><div class="line">    &quot;Level1&quot;: 123</div><div class="line">  &#125;,</div><div class="line">  &quot;MyConfig2&quot;: [</div><div class="line">    &#123;</div><div class="line">      &quot;Name&quot;: &quot;John&quot;</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">      &quot;Name&quot;: &quot;Mary&quot;</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>透過 inject 取得 IConfiguration<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">using Microsoft.Extensions.Configuration;</div><div class="line"></div><div class="line">public HomeController(IConfiguration configuration)</div><div class="line">&#123;</div><div class="line">    _configuration = configuration;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>取值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var v1 = _configuration[&quot;MyConfig1:Level1&quot;]; // get “123”</div><div class="line">var v2 = _configuration[&quot;MyConfig2:1:Name&quot;]; // get “Mary”</div></pre></td></tr></table></figure></p>
+<h4 id="客製自己的設定檔"><a href="#客製自己的設定檔" class="headerlink" title="客製自己的設定檔"></a>客製自己的設定檔</h4><p>這裡是產生獨立的類別組, 不是加入 IConfiguration 中。</p>
+<ol>
+<li><p>定義一個 json 檔, 有 3 段設定值，就叫 myappsettings.json 吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;database&quot;: &#123;</div><div class="line">        &quot;databaseName&quot;: &quot;my-db-name&quot;,</div><div class="line">        &quot;serverHost&quot;: &quot;mySqlHost&quot;,</div><div class="line">        &quot;port&quot;: 1433,</div><div class="line">        &quot;username&quot;: &quot;username&quot;,</div><div class="line">        &quot;password&quot;: &quot;password&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;facebook&quot;: &#123;</div><div class="line">        &quot;appId&quot;: &quot;app-id&quot;,</div><div class="line">        &quot;appSecret&quot;: &quot;app-secret&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>定義一組和 json 設定值有相同結構的類別。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public class Configuration</div><div class="line">&#123;</div><div class="line">    public DatabaseConfiguration Database &#123; get; set; &#125;</div><div class="line">    public FacebookConfiguration Facebook &#123; get; set; &#125;</div><div class="line">    public SmtpConfiguration Smtp &#123; get; set; &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class DatabaseConfiguration</div><div class="line">&#123;</div><div class="line">    public string DatabaseName &#123; get; set; &#125;</div><div class="line">    public string ServerHost &#123; get; set; &#125;</div><div class="line">    public int Port &#123; get; set; &#125;</div><div class="line">    public string Username &#123; get; set; &#125;</div><div class="line">    public string Password &#123; get; set; &#125;</div><div class="line">    public string ConnectionString =&gt; $&quot;Server=tcp:&#123;ServerHost&#125;,&#123;Port&#125;; Database=&#123;DatabaseName&#125;; User ID = &#123; Username &#125;; Password=&#123;Password&#125;;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30;&quot;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class FacebookConfiguration</div><div class="line">&#123;</div><div class="line">    public string AppId &#123; get; set; &#125;</div><div class="line">    public string AppSecret &#123; get; set; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在 Startup.cs 中初始化, 並以 Singleton 模式註冊到 DI 中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">private readonly IHostingEnvironment _hostingEnvironment;</div><div class="line">private readonly Configuration _configuration;</div><div class="line"></div><div class="line">public Startup(IHostingEnvironment hostingEnvironment)</div><div class="line">&#123;</div><div class="line">    _hostingEnvironment = hostingEnvironment;</div><div class="line">    </div><div class="line">    var builder = new ConfigurationBuilder()</div><div class="line">        .SetBasePath(hostingEnvironment.ContentRootPath)</div><div class="line">        .AddJsonFile(&quot;myappsettings.json&quot;, false, true)</div><div class="line">        .Build();</div><div class="line"></div><div class="line">    _configuration = new Configuration();</div><div class="line">    builder.Bind(_configuration);</div><div class="line">&#125;</div><div class="line"></div><div class="line">public void ConfigureServices(IServiceCollection services)</div><div class="line">&#123;</div><div class="line">    services.AddSingleton(_configuration);	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>利用dependency injection 取得</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public HomeController(Configuration myconfiguration)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h3><p>ASP.NET Core 內建提供了類似 Common.Logging.NET 的 Log 中介機制，套件及功能開發都應該利用標準的方式來處理 log，不用再透過外部套件。</p>
+<h4 id="Providers"><a href="#Providers" class="headerlink" title="Providers"></a>Providers</h4><p>內建提供了 6 個 <a href="https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/logging/?tabs=aspnetcore2x#console" title="logging providers" target="_blank" rel="external">logging providers</a>，可以記錄到不同地方：</p>
+<ul>
+<li>Console</li>
+<li>Debug - 加入到 Visual Studio Debug 中的 ”偵錯”內容。</li>
+<li>EventSource - 加入到 Windows 的 Event Tracing (ETW)，macOS 及 linux 不支援。</li>
+<li>EventLog - 加入到 Windows 的 Event Log。</li>
+<li>TraceSource</li>
+<li>Azure App Service</li>
+</ul>
+<p>也可和第三方套件協作：</p>
+<ul>
+<li><a href="https://github.com/elmahio/Elmah.Io.Extensions.Logging" target="_blank" rel="external">elmah.io</a> - Elmah.Io service。</li>
+<li><a href="http://jsnlog.com/" target="_blank" rel="external">JSNLog</a> - logs JavaScript exceptions 和其它的 client-side events 到 server-side log。</li>
+<li><a href="https://github.com/imobile3/Loggr.Extensions.Logging" target="_blank" rel="external">Loggr</a> - Loggr service。</li>
+<li><a href="https://github.com/NLog/NLog.Extensions.Logging" target="_blank" rel="external">NLog</a> - NLog library。</li>
+<li><a href="https://github.com/serilog/serilog-extensions-logging" target="_blank" rel="external">Serilog</a> - Serilog library。</li>
+<li><a href="https://github.com/huorswords/Microsoft.Extensions.Logging.Log4Net.AspNetCore" target="_blank" rel="external">log4net</a> - log4net。</li>
+</ul>
+<h4 id="在應用程式中啟用-Providers"><a href="#在應用程式中啟用-Providers" class="headerlink" title="在應用程式中啟用 Providers"></a>在應用程式中啟用 Providers</h4><p>在 Hosting 時如果是用 CreateDefaultBuilder(), 已預設啟用 Console 和 Debug。</p>
+<p>在 new WebHostBuilder() 時，啟用各式 Providers：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">new WebHostBuilder()</div><div class="line">.ConfigureLogging((hostingContext, logging) =&gt;</div><div class="line">&#123;</div><div class="line">    logging.AddConfiguration(hostingContext.Configuration.GetSection(&quot;Logging&quot;));</div><div class="line">    logging.AddConsole();</div><div class="line">    logging.AddDebug();</div><div class="line">&#125;)</div><div class="line">…</div></pre></td></tr></table></figure></p>
+<p>Console 畫面<br><img src="http://c1.staticflickr.com/5/4567/38206165616_71f6874afb_b.jpg" alt="console"></p>
+<h4 id="在程式中使用-logger"><a href="#在程式中使用-logger" class="headerlink" title="在程式中使用 logger"></a>在程式中使用 logger</h4><p>直接利用 DI 取得 ILogger，並叫用 method：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public class MyService</div><div class="line">&#123;</div><div class="line">    private readonly ILogger&lt;MyService&gt; _logger;</div><div class="line">    </div><div class="line">    public MyService(ILogger&lt;MyService&gt; logger)</div><div class="line">    &#123;</div><div class="line">        _logger = logger;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void DoSomething()</div><div class="line">    &#123;</div><div class="line">        _logger.LogInformation(&quot;Doing something ...&quot;);</div><div class="line">        //.... do something</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="Log-event-ID"><a href="#Log-event-ID" class="headerlink" title="Log event ID"></a>Log event ID</h4><p>輸出 log 時，可指定一個 event id 作為把 log 歸類用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_logger.LogInformation(1001, &quot;Getting item &#123;ID&#125;&quot;, id);</div></pre></td></tr></table></figure></p>
+<p>輸出內容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">info: TodoApi.Controllers.TodoController[1001]</div><div class="line">      Getting item invalidid</div><div class="line">warn: TodoApi.Controllers.TodoController[4000]</div><div class="line">      GetById(invalidid) NOT FOUND</div></pre></td></tr></table></figure></p>
+<h4 id="Change-Log-Level"><a href="#Change-Log-Level" class="headerlink" title="Change Log Level"></a>Change Log Level</h4><p>ASP.NET Core logging 有 6 種 levels，依重要性的輕到重排列如下：</p>
+<ul>
+<li>Trace = 0</li>
+<li>Debug = 1</li>
+<li>Information = 2</li>
+<li>Warning = 3</li>
+<li>Error = 4</li>
+<li>Critical = 5</li>
+</ul>
+<p>各有對應的輸出 method 供使用，如 Information 就用 logger.LogInformation(…)。<br>可以利用 log filtering 來控制要輸出哪個 level 以上的 log 內容</p>
+<h4 id="Log-filtering"><a href="#Log-filtering" class="headerlink" title="Log filtering"></a>Log filtering</h4><p>如果是利用 CreateDefaultBuilder() 做初始化，則預先取 appsettings.json 中的Logging 段內容做設定值，像logging.AddConfiguration(hostingContext.Configuration.GetSection(“Logging”));</p>
+<p><em>手動設定</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">WebHost.CreateDefaultBuilder(args)</div><div class="line">    .UseStartup&lt;Startup&gt;()</div><div class="line">    .ConfigureLogging(logging =&gt;</div><div class="line">        logging.AddFilter(&quot;System&quot;, LogLevel.Debug)</div><div class="line">            .AddFilter&lt;DebugLoggerProvider&gt;(&quot;Microsoft&quot;, LogLevel.Trace))</div><div class="line">    .Build();</div></pre></td></tr></table></figure></p>
+<p>第一個 AddFilter 是對全部 Provider 即預設，第二個是針對 DebugLoggerProvider。</p>
+<p><em>Default minimum level</em></p>
+<p>當設定或程式中沒有規則適用於給定的 Provider 和 category 時，一個 minimum level 值會生效，可以用以下方式做設定：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">.ConfigureLogging(logging =&gt; logging.SetMinimumLevel(LogLevel.Warning))</div></pre></td></tr></table></figure></p>
+<p><em>Filter functions</em></p>
+<p>可以利用程式邏輯來處理 log 的過濾<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">.ConfigureLogging(logBuilder =&gt;</div><div class="line">&#123;</div><div class="line">    logBuilder.AddFilter((provider, category, logLevel) =&gt;</div><div class="line">    &#123;</div><div class="line">        if (provider == &quot;Microsoft.Extensions.Logging.Console.ConsoleLoggerProvider&quot; &amp;&amp; </div><div class="line">            category == &quot;TodoApi.Controllers.TodoController&quot;)</div><div class="line">        &#123;</div><div class="line">            return false;</div><div class="line">        &#125;</div><div class="line">        return true;</div><div class="line">    &#125;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h2 id="ASP-NET-Core-Application-Frameworks"><a href="#ASP-NET-Core-Application-Frameworks" class="headerlink" title="ASP.NET Core Application Frameworks"></a>ASP.NET Core Application Frameworks</h2><p>ASP.NET Core 已將 MVC 和 Web API 整合到相同的 Controller 中，只要啟用 MVC 即已提供 Web API 功能。</p>
+<p>Startup 中啟用 MVC 的情況<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public class Startup</div><div class="line">&#123;</div><div class="line">    public void ConfigureServices(IServiceCollection services)</div><div class="line">    &#123;</div><div class="line">        services.AddMvc();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void Configure(IApplicationBuilder app)</div><div class="line">    &#123;</div><div class="line">        app.UseMvcWithDefaultRoute();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Web-API-範例"><a href="#Web-API-範例" class="headerlink" title="Web API 範例"></a>Web API 範例</h3><h4 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h4><p>通常會以 api 開頭<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[Route(&quot;api/[controller]&quot;)]</div><div class="line">public class UsersController : Controller</div></pre></td></tr></table></figure></p>
+<h4 id="Return-data-from-an-API"><a href="#Return-data-from-an-API" class="headerlink" title="Return data from an API"></a>Return data from an API</h4><p>get item / get items，限定 [HttpGet]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[HttpGet]</div><div class="line">public User[] Get()</div><div class="line">&#123;</div><div class="line">    return new[] &#123;new User() &#123;...&#125;, new User() &#123;...&#125;&#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">[HttpGet(&quot;&#123;id&#125;&quot;)]</div><div class="line">public User Get(int id)</div><div class="line">&#123;</div><div class="line">    return users.FirstOrDefault(x =&gt; x.Id == id);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="Update-data-using-APIs"><a href="#Update-data-using-APIs" class="headerlink" title="Update data using APIs"></a>Update data using APIs</h4><p>add item，限定 [HttpPost]<br>remove item，限定 [HttpDelete]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">// Adding user</div><div class="line">[HttpPost]</div><div class="line">public IActionResult Update([FromBody] User user)</div><div class="line">&#123;</div><div class="line">    return new CreatedResult($&quot;/api/users/&#123;user.Id&#125;&quot;, user);</div><div class="line">&#125;</div><div class="line"></div><div class="line">// Deleting user</div><div class="line">[HttpDelete]</div><div class="line">public IActionResult Delete([FromQuery] int id)</div><div class="line">&#123;</div><div class="line">    var user = users.SingleOrDefault(x =&gt; x.Id == id);</div><div class="line">    </div><div class="line">    if (user != null)</div><div class="line">    &#123;</div><div class="line">        users.Remove(user);</div><div class="line">        return new EmptyResult();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return new NotFoundResult();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li><code>[FromBody]</code> 及 <code>[FromQuery]</code> 用來限定資料來源。</li>
+<li>Web API 提供了常用的標準 Result，如：<ul>
+<li>CreatedResult() - 用於資料新增會回 201(created)</li>
+<li>EmptyResult() - 回 200(OK)</li>
+<li>NotFoundResult() - 回 404 </li>
+</ul>
+</li>
+</ul>
+<h3 id="ASP-NET-MVC-Core"><a href="#ASP-NET-MVC-Core" class="headerlink" title="ASP.NET MVC Core"></a>ASP.NET MVC Core</h3><p>ASP.NET MVC Core 延續 ASP.NET MVC 的使用體驗，對有經驗的開發人員可以很快上手。</p>
+<p>包含以下功能</p>
+<ul>
+<li>Routing</li>
+<li>Model binding</li>
+<li>Model validation</li>
+<li>Dependency injection</li>
+<li>Filters</li>
+<li>Areas</li>
+<li>Web APIs</li>
+<li>Testability</li>
+<li>Razor view engine</li>
+<li>Strongly typed views</li>
+<li>Tag Helpers</li>
+<li>View Components</li>
+</ul>
+<p>一些新語法或新功能說明如下：</p>
+<h4 id="Routing"><a href="#Routing" class="headerlink" title="Routing"></a>Routing</h4><p>於 Startup設定基本 routing<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">app.UseMvcWithDefaultRoute();</div><div class="line"></div><div class="line">// 等同於</div><div class="line">app.UseMvc(routes =&gt;</div><div class="line">&#123;</div><div class="line">    routes.MapRoute(</div><div class="line">        name: &quot;default&quot;,</div><div class="line">        template: &quot;&#123;controller=Home&#125;/&#123;action=Index&#125;/&#123;id?&#125;&quot;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>Attribute routing<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[Route(&quot;api/[controller]&quot;)]</div><div class="line">public class ProductsController : Controller</div><div class="line">&#123;</div><div class="line">    [HttpGet(&quot;&#123;id&#125;&quot;)]</div><div class="line">    public IActionResult GetProduct(int id)</div><div class="line">    &#123;</div><div class="line">      ...</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="Dependency-injection-into-views"><a href="#Dependency-injection-into-views" class="headerlink" title="Dependency injection into views"></a>Dependency injection into views</h4><p>在 ASP.NET Core 的 DI 機制下，除了 controllers 可 inject 所需的元件外，View 也可以。</p>
+<p>使用 <code>@inject</code> directive，語法：<code>@inject &lt;type&gt; &lt;name&gt;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">@inject SomeService ServiceName</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;title&gt;@ServiceName.GetTitle&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;h1&gt;@ServiceName.GetTitle&lt;/h1&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p><em>View inject 的使用場合可以是：</em></p>
+<p>A. 頁面資料提供</p>
+<p>View inject 的一個應用場合就是取得選單資料。較獨立的選單資料，以往要透過 ViewBag 或 Model 來傳遞給 View，現在可以利用獨立元件提供並 inject 到 view 中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@inject ProfileOptionsService Options</div><div class="line"></div><div class="line">Gender: @Html.DropDownList(&quot;Gender&quot;,</div><div class="line">        Options.ListGenders().Select(g =&gt; new SelectListItem() &#123; Text = g, Value = g &#125;))</div></pre></td></tr></table></figure></p>
+<p>B. Overriding Services</p>
+<p>除了 inject 新元件，也可以用來取代已有的元件，如 HTML Helpers。<br>下例即為用 MyHtmlHelper 取代系統的 Html Helper<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@inject MyHtmlHelper Html</div><div class="line"></div><div class="line">&lt;div&gt;</div><div class="line">    Test: @Html.Value</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="View-相關改進"><a href="#View-相關改進" class="headerlink" title="View 相關改進"></a>View 相關改進</h3><h4 id="Tag-Helpers"><a href="#Tag-Helpers" class="headerlink" title="Tag Helpers"></a>Tag Helpers</h4><p>利用 server side 的程式去建立 Razor 的自定 tag (element) 如 <environment> 或取代 html 的 tag 加上和 MVC 功能的結合，讓頁面內容更易讀。<br>系統已有內建一般用途的 Tag Helpers 如 input, form, label, and select，從 NuGet 及 GitHub 可取得更多。</environment></p>
+<p>像 EnvironmentTagHelper 能夠載入不同的 scripts 到頁面中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;environment names=&quot;Development&quot;&gt;</div><div class="line">    &lt;script src=&quot;~/lib/jquery/dist/jquery.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;/environment&gt;</div><div class="line">&lt;environment names=&quot;Staging,Production&quot;&gt;</div><div class="line">    &lt;script src=&quot;https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js&quot;</div><div class="line">            asp-fallback-src=&quot;~/lib/jquery/dist/jquery.min.js&quot;</div><div class="line">            asp-fallback-test=&quot;window.jQuery&quot;&gt;</div><div class="line">    &lt;/script&gt;</div><div class="line">&lt;/environment&gt;</div></pre></td></tr></table></figure></p>
+<p>針對 Text Box，以往用 HTML Helper 是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@Html.TextBoxFor(m=&gt;m.Email, new &#123; @class = &quot;form-control&quot; &#125;)</div></pre></td></tr></table></figure></p>
+<p>改用 Tag Helper 則是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input asp-for=&quot;FirstName&quot; class=&quot;form-control&quot; /&gt;</div></pre></td></tr></table></figure></p>
+<p>ASP.NET Core 的 _Layout.cshtml 已用 Tag Helper 改寫，可以和 ASP.NET MVC 5 的版本比較，就可以知道差異。</p>
+<h4 id="客製自己的-Tag-Helpers"><a href="#客製自己的-Tag-Helpers" class="headerlink" title="客製自己的 Tag Helpers"></a>客製自己的 Tag Helpers</h4><p>假設要建一個 url tag <code>&lt;url&gt;…&lt;/url&gt;</code> ，用法如：<br><code>&lt;url&gt;https://www.web.com/resources/ebooks&lt;/url&gt;</code></p>
+<p><em>作法如下</em></p>
+<ul>
+<li>命名為 XXX + TagHelper</li>
+<li>繼承 TagHelper</li>
+<li>overriding Process() or ProcessAsync()，接 2 個參數 context 和 output</li>
+</ul>
+<p><em>範例如下</em></p>
+<p>預設放在 TagHelpers 目錄下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">using Microsoft.AspNetCore.Razor.TagHelpers;</div><div class="line"></div><div class="line">namespace MvcSample.TagHelpers</div><div class="line">&#123;</div><div class="line">    public class UrlTagHelper: TagHelper</div><div class="line">    &#123;</div><div class="line">        public override async Task ProcessAsync(TagHelperContext context, </div><div class="line">            TagHelperOutput output)</div><div class="line">        &#123;</div><div class="line">            output.TagName = &quot;a&quot;;</div><div class="line">            var content = await output.GetChildContentAsync();</div><div class="line">            output.Attributes.SetAttribute(&quot;href&quot;, content.GetContent());</div><div class="line">        &#125;    </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><em>用法如下</em></p>
+<p>要告知 VS 和 ASP.NET Core 要導哪個元件。在 Views 目錄下有個 _ViewImports.cshtml 專門做這個定義，在它裡面新增一行宣告：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@addTagHelper *, MvcSample</div></pre></td></tr></table></figure></p>
+<p>注意，namespace 後面不用加上 Tag 名稱， <strong>*</strong> 已表示載入 MvcSample 下的 tags 了。</p>
+<h4 id="View-components"><a href="#View-components" class="headerlink" title="View components"></a>View components</h4><p>有點像 partial view，但更元件化，有不同的使用情境。</p>
+<p>它不存取 Model，單純用傳入的參數內容來產生頁面，可用來製作有邏輯處理的重覆使用頁面元件。</p>
+<p><em>建立 view component</em></p>
+<p>view component 由兩個部份組成：<code>類別</code> 和 <code>razor view</code>。<br>類別統一放在 ViewComponents 目錄中，razor view 建議放在 Views/Shared/Components 下。</p>
+<p>View component 類別</p>
+<ul>
+<li>繼承 ViewComponent 或在 class 上掛 [ViewComponent] attribute</li>
+<li>命名為 XXX + ViewComponent</li>
+<li>要實作或提供 Invoke 或 InvokeAsync method，並回傳 IViewComponentResult</li>
+</ul>
+<p>View search path</p>
+<ul>
+<li>Views/Shared/Components/<view_component_name>/<view_name> - 官方建議位置</view_name></view_component_name></li>
+<li>Views/<controller_name>/Components/<view_component_name>/<view_name></view_name></view_component_name></controller_name></li>
+</ul>
+<p>檔名為 Default.cshtml</p>
+<p><em>範例，建立 Sidebar 元件</em></p>
+<p>SideBarViewComponent class<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public class SideBarViewComponent : ViewComponent</div><div class="line">&#123;</div><div class="line">    private readonly ILinkRepository db;</div><div class="line"></div><div class="line">    public SideBarViewComponent(ILinkRepository repository)</div><div class="line">    &#123;</div><div class="line">        db = repository;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public async Task&lt;IViewComponentResult&gt; InvokeAsync(int max = 10)</div><div class="line">    &#123;</div><div class="line">        var items = await db.GetLinks();</div><div class="line">        return View(items.Take(max));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>View : \Views\Shared\Components\SideBar\Default.cshtml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@model IEnumerable&lt;CoreWebApplication1.Models.Link&gt;</div><div class="line">&lt;h3&gt;Blog Roll&lt;/h3&gt;</div><div class="line">&lt;ul&gt;</div><div class="line">    @foreach (var link in Model)</div><div class="line">    &#123;</div><div class="line">        &lt;li&gt;&lt;a href=&quot;@link.Url&quot;&gt;@link.Title&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &#125;</div><div class="line">&lt;/ul&gt;</div></pre></td></tr></table></figure></p>
+<p><em>使用 view component</em></p>
+<p>有 2 種方式：</p>
+<ol>
+<li>@Component.InvokeAsync(“SideBar”, new { max = 5 }) 或<br>Async 版本 @await Component.InvokeAsync(“SideBar”, new { max = 5 })</li>
+<li>Tag Helper 方式 <vc:side-bar max="5"></vc:side-bar>, 即<br><vc:[view-component-name] parameter1="parameter1 value" parameter2="parameter2 value"><br></vc:[view-component-name]></li>
+</ol>
+<h2 id="Deploy-ASP-NET-Core-Apps"><a href="#Deploy-ASP-NET-Core-Apps" class="headerlink" title="Deploy ASP.NET Core Apps"></a>Deploy ASP.NET Core Apps</h2><h3 id="Deploying-on-IIS"><a href="#Deploying-on-IIS" class="headerlink" title="Deploying on IIS"></a>Deploying on IIS</h3><p>基本上，ASP.NET Core 不需要依賴特定外部伺服器就能自己執行，配合自帶的 Kestrel Server 能夠提供很高的執行效率，但輕量化的結果是缺少完整的安全及管理功能。</p>
+<p>配合 IIS 後，IIS 接近 proxy 的角色，主要負責轉發 request 和 response 並維持服務的執行狀態，把 2 者的優點結合起來用。</p>
+<h4 id="ASP-NET-Core-Module-ANCM"><a href="#ASP-NET-Core-Module-ANCM" class="headerlink" title="ASP.NET Core Module - ANCM"></a>ASP.NET Core Module - ANCM</h4><p>為了讓 IIS 和 ASP.NET Core 能合作，必須在 IIS 上安裝具 reverse proxy 功能的專用 module 叫 AspNetCoreModule。在開發環境中，此 module 已隨著 SDK 安裝，所以不必額外安裝。</p>
+<p><em>安裝 ANCM</em></p>
+<p>ANCM 包含在這個安裝包裡：<a href="3">.NET Core Windows Server Hosting bundle</a> (現在是version 2.0.3)。另外還包含 .NET Core Runtime, .NET Core Library。</p>
+<p>安裝後，可在 IIS 的 模組 介面中看到<br><img src="http://c1.staticflickr.com/5/4527/38206165746_5141ba43d5_b.jpg" alt="IIS Module"></p>
+<p><em>執行 UseIISIntegration</em></p>
+<p>當 WebHostBuilder() 執行在 IIS 環境下時，UseIISIntegration() extension method 會自動被執行來配合 ANCM 和 IIS；在 macOS 或 Linux 下，則是 Kestrel 跑起來做 web server。</p>
+<h4 id="Create-IIS-Website"><a href="#Create-IIS-Website" class="headerlink" title="Create IIS Website"></a>Create IIS Website</h4><p>web.config</p>
+<p>ASP.NET Core Module 及 IIS 的相關設定是設在 web.config 中，如果專案中沒有 web.config，在發佈時會自動加入；如果有，則會做適當的整合，加上必要的設定值，如下例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;system.webServer&gt;</div><div class="line">    &lt;handlers&gt;</div><div class="line">      &lt;add name=&quot;aspNetCore&quot; </div><div class="line">          path=&quot;*&quot; verb=&quot;*&quot; </div><div class="line">          modules=&quot;AspNetCoreModule&quot; </div><div class="line">          resourceType=&quot;Unspecified&quot; /&gt;</div><div class="line">    &lt;/handlers&gt;</div><div class="line">    &lt;aspNetCore processPath=&quot;dotnet&quot; </div><div class="line">          arguments=&quot;.\CoreWebApplication1.dll&quot; </div><div class="line">          stdoutLogEnabled=&quot;false&quot; </div><div class="line">          stdoutLogFile=&quot;.\logs\stdout&quot; /&gt;</div><div class="line">&lt;/system.webServer&gt;</div></pre></td></tr></table></figure></p>
+<p><em>應用程式集區 Application Pools 的設定</em></p>
+<p>因為只是 proxy 的角色沒有執行任何的 .NET code，所以應用程式集區的 .NET Framework 版本要設定為 <code>沒有 Managed 程式碼</code> (No Managed Code)。</p>
+<p><em>Deploy</em></p>
+<ol>
+<li><p>可透過命令列, 如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dotnet publish </div><div class="line">  --framework netcoreapp2.0</div><div class="line">  --output &quot;D:\Publish\CoreWebsite1&quot; </div><div class="line">  --configuration Release</div></pre></td></tr></table></figure>
+</li>
+<li><p>透過 Visual Studio 的 發行。</p>
+</li>
+</ol>
+<h2 id="ASP-NET-Core-的相關開發工具"><a href="#ASP-NET-Core-的相關開發工具" class="headerlink" title="ASP.NET Core 的相關開發工具"></a>ASP.NET Core 的相關開發工具</h2><h3 id="dotnet-CLI"><a href="#dotnet-CLI" class="headerlink" title="dotnet CLI"></a>dotnet CLI</h3><p>可以用 dotnet CLI 來執行以下常用的開發操作</p>
+<ul>
+<li>new - to create a new .NET Core project.</li>
+<li>restore - to download all dependencies from NuGet.</li>
+<li>build - to compile the projects.</li>
+<li>publish - to generate a self-contained folder used for deployment.</li>
+<li>run - to run a project, building it if it’s not already built.</li>
+<li>pack - to package the project as a NuGet package.</li>
+<li>msbuild - used as a proxy for the standard MSBuild command.</li>
+</ul>
+<h4 id="new"><a href="#new" class="headerlink" title="new"></a>new</h4><p>new 命令後面配合不同參數，可以指定建立的專案類型：</p>
+<ul>
+<li>new console - 建立 Console app</li>
+<li>new mvc – 建立 MVC app</li>
+<li>new classlib – 建立 Class Library</li>
+</ul>
+<h4 id="build-和-publish"><a href="#build-和-publish" class="headerlink" title="build 和 publish"></a>build 和 publish</h4><p>能指定 framework, runtimes (-r) 和 configuration (debug or release)。</p>
+<p>runtimes 可利用 [os].[version]-[arch] 的樣式來指定不同系統，如 osx.10.11-x64，而內容也會輸出到 osx.10.11-x64 子目錄下。如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dotnet publish -r win10-x64</div><div class="line">dotnet publish -r osx.10.11-x64</div><div class="line">dotnet publish -r ubuntu.14.04-x64</div></pre></td></tr></table></figure></p>
+<h3 id="Visual-Studio-Code"><a href="#Visual-Studio-Code" class="headerlink" title="Visual Studio Code"></a>Visual Studio Code</h3><p>Visual Studio Code 是一個多平台 (Windows, Mac, or Linux) 的輕量編輯器。利用 Extensions 功能可以擴展功能以支援各種不同的程式語言及系統開發。</p>
+<p>用 CLI 建立的專案，可以配合 VSCode 來做開發。</p>
+<h4 id="OmniSharp"><a href="#OmniSharp" class="headerlink" title="OmniSharp"></a>OmniSharp</h4><p>為一個 open-source 專案，提供各式編輯器開發 .NET 專案的能力，VSCode 即是透過 OmniSharp 的 Extensiion 來提供 C# 的支援。</p>
+<h4 id="設定-Visual-Studio-Code"><a href="#設定-Visual-Studio-Code" class="headerlink" title="設定 Visual Studio Code"></a>設定 Visual Studio Code</h4><ul>
+<li>到 <a href="https://code.visualstudio.com/" target="_blank" rel="external">https://code.visualstudio.com/</a> 下載 VSCode 並完成安裝。</li>
+<li>從 Extensions 面板，安裝 C# extension (identifier: ms-vscode.csharp) 現在的版本是 1.13.1 支援 .NET Core 2.0 及 C# 7.1。</li>
+<li><p>第一次開啟 .NET Core 專案, 會下載並安裝適當版本的套件，輸出內容如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Installing package &apos;OmniSharp for Windows (.NET 4.6 / x64)&apos;</div><div class="line">Installing package &apos;.NET Core Debugger (Windows / x64)&apos;</div></pre></td></tr></table></figure>
+</li>
+<li><p>詢問是否加入 VSCode 所需的設定 (Required assets …)，請回答 Yes，會新增 .vscode 目錄。</p>
+</li>
+</ul>
+<h4 id="用-Visual-Studio-Code-開發"><a href="#用-Visual-Studio-Code-開發" class="headerlink" title="用 Visual Studio Code 開發"></a>用 Visual Studio Code 開發</h4><p>當在編輯程式時，和 Visual Studio 類似可以得到以下協助：</p>
+<ul>
+<li>IntelliSense and code completion</li>
+<li>linting and refactoring suggestions</li>
+<li>code navigation</li>
+</ul>
+<p><em>Debugging</em></p>
+<p>進到 Debug 面板，可以對程式做 debug。設定中斷點，並點選上方綠色執行鍵開始 debug。 </p>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>.NET Core 帶來 .NET 未來十年應用程式開發的新環境，而 2.0 版的推出讓它的實用性大大提升，近來文章分享也都集中在 .NET Core 上，現在是學習及應用的好時機點。</p>
+<h2 id="參考資料及圖片來源"><a href="#參考資料及圖片來源" class="headerlink" title="參考資料及圖片來源"></a>參考資料及圖片來源</h2><ol>
+<li><a href="https://docs.microsoft.com/zh-tw/dotnet/standard/index" target="_blank" rel="external">.NET 指南</a>  </li>
+<li><a href="https://docs.microsoft.com/zh-tw/dotnet/core/" target="_blank" rel="external">.NET Core 指南</a>  </li>
+<li><a href="https://blogs.msdn.microsoft.com/dotnet/2017/10/17/announcing-the-net-framework-4-7-1/" target="_blank" rel="external">Announcing the .NET Framework 4.7.1</a></li>
+</ol>
+<!-- ref link -->
+</div><script type="text/javascript" src="/js/share.js?v=0.0.1" async></script><a data-url="https://yingclin.github.io/2017/aspnetcode-2.0-toturial.html" data-id="cjc744kgl000fkkp8hjhbckb9" class="article-share-link">分享至</a><div class="tags"><a href="/tags/ASP-NET-Core/">ASP.NET Core</a><a href="/tags/NET-Core/">.NET Core</a></div><div class="post-nav"><a href="/2017/windows-10-vs-old-projects-tips.html" class="next">新 Windows 10 對上 ASP.NET 舊專案</a></div><div id="disqus_thread"><script>var disqus_shortname = 'ycl-breadcrumbs';
+var disqus_identifier = '2017/aspnetcode-2.0-toturial.html';
+var disqus_title = 'ASP.NET Core 2.0 開發入門';
+var disqus_url = 'https://yingclin.github.io/2017/aspnetcode-2.0-toturial.html';
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//ycl-breadcrumbs.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://yingclin.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> <span class="widget_font"> 分類</span></i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/construction/">軟體構建</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/outdoor/">野日子</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> <span class="widget_font"> 標籤</span></i></div><div class="tagcloud"><a href="/tags/運動會/" style="font-size: 15px;">運動會</a> <a href="/tags/ASP-NET-Core/" style="font-size: 15px;">ASP.NET Core</a> <a href="/tags/ASP-NET/" style="font-size: 15px;">ASP.NET</a> <a href="/tags/bot/" style="font-size: 15px;">bot</a> <a href="/tags/LINE/" style="font-size: 15px;">LINE</a> <a href="/tags/Web-API/" style="font-size: 15px;">Web API</a> <a href="/tags/NET-Core/" style="font-size: 15px;">.NET Core</a> <a href="/tags/RESTFul/" style="font-size: 15px;">RESTFul</a> <a href="/tags/API/" style="font-size: 15px;">API</a> <a href="/tags/NET/" style="font-size: 15px;">.NET</a> <a href="/tags/Windows-10/" style="font-size: 15px;">Windows 10</a> <a href="/tags/Visual-Studio/" style="font-size: 15px;">Visual Studio</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"><span class="widget_font"> 最新文章</span></i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/aspnetcode-2.0-toturial.html">ASP.NET Core 2.0 開發入門</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/windows-10-vs-old-projects-tips.html">新 Windows 10 對上 ASP.NET 舊專案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/net-code-2-introduction.html">準備就緒的 .NET Core 2.0 來了</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/2017-taipei-fisu-broadcast.html">2017 台北世大運 線上直播</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/asp-net-line-messaging-api-basic.html">以 ASP.NET Web API 開發 LINE BOT - LINE Messaging API 詳解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/asp-net-web-api-restful-best-practice-3.html">ASP.NET Web API 最佳實踐專案整合 - 客製篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/asp-net-web-api-restful-best-practice-2.html">ASP.NET Web API 最佳實踐專案整合 - 套件篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/asp-net-web-api-restful-best-practice-1.html">ASP.NET Web API 最佳實踐專案整合 - 內建篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/RESTFul-API-Best-Practice.html">RESTFul API 最佳實踐</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">想不起來而已.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.1" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.1" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.1"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create','UA-67006685-1','auto');ga('send','pageview');
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.1"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.1"></script></div></body></html>
