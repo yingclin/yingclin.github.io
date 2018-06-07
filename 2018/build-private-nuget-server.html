@@ -1,0 +1,83 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>使用 NuGet.Server 架設私有的 NuGet 伺服器 | 想不起來而已</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.1"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/4.1.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">使用 NuGet.Server 架設私有的 NuGet 伺服器</h1><a id="logo" href="/.">想不起來而已</a><p class="description">浪漫工頭的麵包屑</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">使用 NuGet.Server 架設私有的 NuGet 伺服器</h1><div class="post-meta">Jun 1, 2018<span> | </span><span class="category"><a href="/categories/construction/">軟體構建</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><a data-disqus-identifier="2018/build-private-nuget-server.html" href="/2018/build-private-nuget-server.html#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>NuGet 是 .NET 官方套件管理工具，也是開發人員都熟悉使用的工具。<br>我們可以利用架設私有 NuGet 伺服器的方式來對開發團隊的自有套件做管理，讓團隊成員可以有一致的套件存取體驗。</p>
+<p>NuGet.Server 是 .NET Foundation 提供的套件，可用來建立私有 NuGet 伺服器以方便管理及發佈自有開發的套件。NuGet.Server 是輕量化的實作，並沒有提供網頁管理介面，只能透過命令列工具做套件管理。</p>
+<p>本文針對私有伺服器的建置和設定、伺服器的套件管理及 Visual Studio 對伺服器的引用做說明。</p>
+<a id="more"></a>
+<h2 id="建立-NuGet-伺服器應用程式"><a href="#建立-NuGet-伺服器應用程式" class="headerlink" title="建立 NuGet 伺服器應用程式"></a>建立 NuGet 伺服器應用程式</h2><p>範例環境資訊:</p>
+<ul>
+<li>Visual Studio 2017</li>
+<li>.NET Framework 4.7.1</li>
+</ul>
+<h3 id="建立-Web-Application"><a href="#建立-Web-Application" class="headerlink" title="建立 Web Application"></a>建立 Web Application</h3><ol>
+<li>[新增] &gt; [專案] &gt; [Web] &gt; <code>ASP.NET Web Application(.NET Framework)</code>。</li>
+<li>選用 <code>空白</code> 專案範本。<br><img src="/images/2018-bpns_new-empty-project.png" alt="空白範本"></li>
+</ol>
+<h3 id="安裝-NuGet-Server"><a href="#安裝-NuGet-Server" class="headerlink" title="安裝 NuGet.Server"></a>安裝 NuGet.Server</h3><p>使用 NuGet 安裝 NuGet.Server 套件。</p>
+<ol>
+<li>以滑鼠右鍵按一下專案，選取 [管理 NuGet 套件]。</li>
+<li>在套件管理員 UI 中選取 [瀏覽] 索引標籤，搜尋並安裝最新版的 “NuGet.Server” 套件。<br><img src="/images/2018-bpns_nuget-search-nugetserver.png" alt="nuget.server"> </li>
+</ol>
+<p>注意 </p>
+<ol>
+<li>最新版相依於 .NET Framework 4.6，如果是使用 .NET Framework 4.5.2 時，套件請選用 2.10.3 版。</li>
+<li>如果專案不是 .NET Framework 4.6 時，可能會在 web.config 的 <code>system.web</code> 下多插入一個 <code>&lt;compilation debug=&quot;true&quot; targetFramework=&quot;4.6&quot; /&gt;</code> 導致錯誤，可以檢查一下是否有重覆的設定值。</li>
+</ol>
+<p>也可以使用套件管理器主控台來安裝，使用以下命令:</p>
+<p><code>Install-Package NuGet.Server</code></p>
+<p>安裝後 web.config 的 appSettings 會增加一些設定值，預設的套件存放路徑為 <code>~/Packages</code> 所以會新建一個 Packages 資料夾。</p>
+<p>套件安裝好，就可以按 Ctrl + F5 測試一下。<br><img src="/images/2018-bpns_try-run.png" alt="OK"></p>
+<p>正確執行！</p>
+<p>畫面中 <code>Repository URLs</code> 區域中的網址(如上例的 <code>http://localhost:17240/nuget</code>)，即是後續要設定自有套件庫的來源網址。 </p>
+<h2 id="設定-NuGet-Server"><a href="#設定-NuGet-Server" class="headerlink" title="設定 NuGet Server"></a>設定 NuGet Server</h2><p>NuGet.Server 會在 web.config 中加入一些設定值。重要的設定值如下：</p>
+<h3 id="API-安全性"><a href="#API-安全性" class="headerlink" title="API 安全性"></a>API 安全性</h3><ul>
+<li>requireApiKey<br>設定推送或刪除套件是否需要 Api Key</li>
+<li>apiKey<br>推送或刪除套件時，用來驗證的 Key 值</li>
+</ul>
+<p>如果是在內網使用沒安全疑慮下，可以將 requireApiKey 設定成 false，apiKey 保持空白以略過檢查。</p>
+<p>當 requireApiKey 為 true 時，apiKey 省略或空白時，推送功能會被停用。</p>
+<h3 id="套件存放路徑"><a href="#套件存放路徑" class="headerlink" title="套件存放路徑"></a>套件存放路徑</h3><ul>
+<li>packagesPath<br>可以是絕對或虛擬路徑，省略或留白時，預設值是 ~/Packages</li>
+</ul>
+<h3 id="隱藏而不刪除"><a href="#隱藏而不刪除" class="headerlink" title="隱藏而不刪除"></a>隱藏而不刪除</h3><p>delete 會直接刪除檔案，而 delist 會將檔案設為隱藏即從公開名單上除名。  </p>
+<p>nuget list 時會略過被 delist 的 package，但指定 package 版本做安裝 (nuget install packageid -version version) 可以正常取得檔案，減少版本的相依問題。</p>
+<ul>
+<li>enableDelisting<br>是否以 delist 取代 delete</li>
+</ul>
+<h2 id="套件管理"><a href="#套件管理" class="headerlink" title="套件管理"></a>套件管理</h2><p>管理套件，要透過 nuget.exe 這個命令列公用程式。nuget.exe CLI 不會影響專案檔，也不會在安裝套件時更新 packages.config。</p>
+<p>如果有安裝 Visual Studio，可能已設定好環境可直接使用，可打開命令視窗試執行 <code>nuget</code> 看看。</p>
+<h3 id="安裝-NuGet-CLI"><a href="#安裝-NuGet-CLI" class="headerlink" title="安裝 NuGet CLI"></a>安裝 NuGet CLI</h3><ol>
+<li>到 <a href="https://www.nuget.org/downloads" target="_blank" rel="external">官網下載</a> nuget.exe，選建議版本即可 (recommended latest)。</li>
+<li>需要 4.1.0 以上版本才能將套件發行至 nuget.org。</li>
+<li>可加到系統的 PATH 環境變數中以方便叫用。</li>
+</ol>
+<h3 id="新增-刪除-套件"><a href="#新增-刪除-套件" class="headerlink" title="新增/刪除 套件"></a>新增/刪除 套件</h3><p>可以利用 <code>nuget setApiKey</code> 命令來將 apiKey 儲存在本機中，就不用在每次執行異動時都要帶入 apiKey 的參數值，命令如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nuget setApiKey [apiKey] -Source [nuget 套件庫的來源網址]</div></pre></td></tr></table></figure></p>
+<p>推送新套件，用以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nuget push [.nupkg 檔位置] [apiKey] -Source [nuget 套件庫的來源網址]</div></pre></td></tr></table></figure></p>
+<p>刪除 Server 上的套件，用以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nuget delete [套件 id] [套件版本號] [apiKey] -Source [nuget 套件庫的來源網址]</div></pre></td></tr></table></figure></p>
+<p>有先 nuget setApiKey 過，[apiKey] 就不用傳了。</p>
+<h2 id="使用私有-NuGet-伺服器"><a href="#使用私有-NuGet-伺服器" class="headerlink" title="使用私有 NuGet 伺服器"></a>使用私有 NuGet 伺服器</h2><h3 id="設定-Visual-Studio-的-NuGet-來源"><a href="#設定-Visual-Studio-的-NuGet-來源" class="headerlink" title="設定 Visual Studio 的 NuGet 來源"></a>設定 Visual Studio 的 NuGet 來源</h3><p>透過 VS 的 [套件管理員設定] 可以加入私有 NuGet 伺服器的引用。</p>
+<ol>
+<li>點選 [工具] &gt; [NuGet 封裝管理員] &gt; [套件管理員設定]。</li>
+<li>在左側 [NuGet 封裝管理員] 中，選擇 [套件來源]。</li>
+<li>在 [可用套件來源] 中選擇 [加號＋]，在下方的名稱來源區輸入自定的 NuGet Server 名稱及來源網址 (如 <code>http://localhost:17240/nuget</code>)，點選 [更新] 即完成設定。</li>
+</ol>
+<h3 id="使用新套件"><a href="#使用新套件" class="headerlink" title="使用新套件"></a>使用新套件</h3><p>打開 NuGet 封裝管理員(套件管理員)，從右上方的 <code>套件來源</code> 選單中可選到我們新增的套件來源．</p>
+<p>切換來源後，即可透過列表及搜尋找到套件來做安裝。</p>
+<p><img src="/images/2018-bpns_select-source.png" alt="select source"></p>
+<h2 id="參考資料及圖片來源"><a href="#參考資料及圖片來源" class="headerlink" title="參考資料及圖片來源"></a>參考資料及圖片來源</h2><ol>
+<li><a href="https://github.com/NuGet/NuGet.Server" target="_blank" rel="external">NuGet.Server 專案</a>  </li>
+<li><a href="https://docs.microsoft.com/zh-tw/nuget/hosting-packages/nuget-server" target="_blank" rel="external">NuGet.Server Microsoft docs 官方文件</a></li>
+<li><a href="https://docs.microsoft.com/en-us/nuget/tools/nuget-exe-cli-reference" target="_blank" rel="external">官方 NuGet CLI 參考文件</a></li>
+</ol>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.1" async></script><a data-url="https://yingclin.github.io/2018/build-private-nuget-server.html" data-id="cji45m8w7000p2kp8m2yx7k6w" class="article-share-link">分享至</a><div class="tags"><a href="/tags/NuGet/">NuGet</a><a href="/tags/DevOps/">DevOps</a></div><div class="post-nav"><a href="/2018/create-nuget-package.html" class="next">由類別庫建立 NuGet 套件</a></div><div id="disqus_thread"><script>var disqus_shortname = 'ycl-breadcrumbs';
+var disqus_identifier = '2018/build-private-nuget-server.html';
+var disqus_title = '使用 NuGet.Server 架設私有的 NuGet 伺服器';
+var disqus_url = 'https://yingclin.github.io/2018/build-private-nuget-server.html';
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//ycl-breadcrumbs.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://yingclin.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> <span class="widget_font"> 分類</span></i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/construction/">軟體構建</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/outdoor/">野日子</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> <span class="widget_font"> 標籤</span></i></div><div class="tagcloud"><a href="/tags/運動會/" style="font-size: 15px;">運動會</a> <a href="/tags/NuGet/" style="font-size: 15px;">NuGet</a> <a href="/tags/ASP-NET-Core/" style="font-size: 15px;">ASP.NET Core</a> <a href="/tags/NET-Core/" style="font-size: 15px;">.NET Core</a> <a href="/tags/ASP-NET/" style="font-size: 15px;">ASP.NET</a> <a href="/tags/MVC/" style="font-size: 15px;">MVC</a> <a href="/tags/C/" style="font-size: 15px;">C#</a> <a href="/tags/小抄/" style="font-size: 15px;">小抄</a> <a href="/tags/DevOps/" style="font-size: 15px;">DevOps</a> <a href="/tags/RESTFul/" style="font-size: 15px;">RESTFul</a> <a href="/tags/API/" style="font-size: 15px;">API</a> <a href="/tags/Web-API/" style="font-size: 15px;">Web API</a> <a href="/tags/bot/" style="font-size: 15px;">bot</a> <a href="/tags/LINE/" style="font-size: 15px;">LINE</a> <a href="/tags/NET/" style="font-size: 15px;">.NET</a> <a href="/tags/Windows-10/" style="font-size: 15px;">Windows 10</a> <a href="/tags/Visual-Studio/" style="font-size: 15px;">Visual Studio</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"><span class="widget_font"> 最新文章</span></i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/build-private-nuget-server.html">使用 NuGet.Server 架設私有的 NuGet 伺服器</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/create-nuget-package.html">由類別庫建立 NuGet 套件</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/using-csharp-6-7-with-mvc-5.html">[小抄] 在 ASP.NET MVC 5 的 View 中使用 C# 6 或 C# 7 語法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/aspnetcode-2.0-toturial.html">ASP.NET Core 2.0 開發入門</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/windows-10-vs-old-projects-tips.html">新 Windows 10 對上 ASP.NET 舊專案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/net-code-2-introduction.html">準備就緒的 .NET Core 2.0 來了</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/2017-taipei-fisu-broadcast.html">2017 台北世大運 線上直播</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/asp-net-line-messaging-api-basic.html">以 ASP.NET Web API 開發 LINE BOT - LINE Messaging API 詳解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/asp-net-web-api-restful-best-practice-3.html">ASP.NET Web API 最佳實踐專案整合 - 客製篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/asp-net-web-api-restful-best-practice-2.html">ASP.NET Web API 最佳實踐專案整合 - 套件篇</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">想不起來而已.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.1" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.1" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.1"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create','UA-67006685-1','auto');ga('send','pageview');
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.1"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.1"></script></div></body></html>
