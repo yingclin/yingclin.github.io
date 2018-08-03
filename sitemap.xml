@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://yingclin.github.io/2018/simple-react-starter-page.html</loc>
+    
+    <lastmod>2018-08-02T09:53:46.596Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://yingclin.github.io/2018/create-nuget-package.html</loc>
     
     <lastmod>2018-06-08T10:09:48.512Z</lastmod>
