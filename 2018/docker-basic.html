@@ -1,0 +1,195 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>[小抄] Docker 基本命令 | 想不起來而已</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.1"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/4.1.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">[小抄] Docker 基本命令</h1><a id="logo" href="/.">想不起來而已</a><p class="description">浪漫工頭的麵包屑</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">[小抄] Docker 基本命令</h1><div class="post-meta">Sep 30, 2018<span> | </span><span class="category"><a href="/categories/construction/">軟體構建</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><a data-disqus-identifier="2018/docker-basic.html" href="/2018/docker-basic.html#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>方便查閱的 Docker 基本命令。</p>
+<a id="more"></a>
+<h2 id="使用-容器-Container"><a href="#使用-容器-Container" class="headerlink" title="使用 容器(Container)"></a>使用 容器(Container)</h2><h3 id="docker-程序是否存在，功能是否正常"><a href="#docker-程序是否存在，功能是否正常" class="headerlink" title="docker 程序是否存在，功能是否正常"></a>docker 程序是否存在，功能是否正常</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
+<h3 id="新建並啟動"><a href="#新建並啟動" class="headerlink" title="新建並啟動"></a>新建並啟動</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world  </span><br><span class="line">docker run ubuntu /bin/echo &apos;Hello world&apos;</span><br></pre></td></tr></table></figure>
+<h3 id="啟動一個-bash-終端，允許使用者進行互動"><a href="#啟動一個-bash-終端，允許使用者進行互動" class="headerlink" title="啟動一個 bash 終端，允許使用者進行互動"></a>啟動一個 bash 終端，允許使用者進行互動</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -i -t ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-t 選項讓 Docker 分配一個虛擬終端（pseudo-tty）並綁定到容器的標準輸入上。</li>
+<li>-i 則讓容器的標準輸入保持打開。</li>
+</ul>
+<h3 id="查看系統中的容器列表"><a href="#查看系統中的容器列表" class="headerlink" title="查看系統中的容器列表"></a>查看系統中的容器列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<p>只看執行中的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure></p>
+<h3 id="指定容器名稱"><a href="#指定容器名稱" class="headerlink" title="指定容器名稱"></a>指定容器名稱</h3><p>有名稱方便重覆使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name my_ubuntu -i -t　-v $PWD/website:/var/www/html/website ubuntu /bin/bash</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>–name &lt;指定名稱&gt; : 可用字元 [a-zA-Z0-9_.-]。</li>
+<li>-v：掛載本地的目錄到容器中的目錄 - 重要的能力。在 Docker Toolbox 中只有 Users 目錄有權限。</li>
+</ul>
+<h3 id="啟動已終止容器"><a href="#啟動已終止容器" class="headerlink" title="啟動已終止容器"></a>啟動已終止容器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start my_ubuntu</span><br></pre></td></tr></table></figure>
+<p>用 ID 也可以<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start ac3f3b5f0f4e</span><br></pre></td></tr></table></figure></p>
+<h3 id="進入已啟動的容器"><a href="#進入已啟動的容器" class="headerlink" title="進入已啟動的容器"></a>進入已啟動的容器</h3><p>重新啟動後，要 <code>再進入</code> 才能進行操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker attach my_ubuntu</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>attach 會接到啟動時指定的 /bin/bash 實例。所以多個視窗同時 attach 到同一個容器的時候，所有視窗都會同步顯示。</li>
+<li>從 stdin 中 exit， 會導致容器停止。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -i -t my_ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果啟動時沒有下 /bin/bash，就要用 exec 去建立 bash 的實例。</li>
+<li>從 stdin 中 exit， 不會導致容器停止。</li>
+</ul>
+<h3 id="以守護態-Daemonized-執行"><a href="#以守護態-Daemonized-執行" class="headerlink" title="以守護態(Daemonized)執行"></a>以守護態(Daemonized)執行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name my_ubuntu2 ubuntu /bin/sh -c &quot;while true; do echo hello world; sleep 1; done&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-d 參數 : 以守護態執行。</li>
+<li>-c 要執行的命令串。</li>
+<li>只返回 ID。</li>
+<li>輸出訊息不輸出到 Stdout 了。</li>
+<li>-p : 將容器內應甪程式的對外 port 對應到主機的 port，如 Oracle 為 -p 1521:1521</li>
+</ul>
+<p>取得容器的輸出訊息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker logs my_ubuntu2</span><br><span class="line">docker logs -t -f --tail 10 my_ubuntu2</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>-t : 加上時間。</li>
+<li>-f : 持續列出最新。</li>
+<li>–tail 10 : 只列最後 10 筆。</li>
+</ul>
+<h3 id="停止容器"><a href="#停止容器" class="headerlink" title="停止容器"></a>停止容器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop my_ubuntu2</span><br></pre></td></tr></table></figure>
+<h3 id="查看容器內的進程"><a href="#查看容器內的進程" class="headerlink" title="查看容器內的進程"></a>查看容器內的進程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker top my_ubuntu</span><br></pre></td></tr></table></figure>
+<h3 id="容器的統計信息"><a href="#容器的統計信息" class="headerlink" title="容器的統計信息"></a>容器的統計信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stats my_ubuntu my_ubuntu2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以列表方式看到多個內容。</li>
+</ul>
+<h3 id="取得容器的詳細資訊"><a href="#取得容器的詳細資訊" class="headerlink" title="取得容器的詳細資訊"></a>取得容器的詳細資訊</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect my_ubuntu</span><br></pre></td></tr></table></figure>
+<p>配合 -f 或 –format 來選定結果，如以下取得 ip address<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect --format &apos;&#123;&#123; .NetworkSettings.IPAddress &#125;&#125;&apos; my_ubuntu</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>–format 支持完整的 Go 語言模板。</li>
+</ul>
+<h3 id="刪除容器"><a href="#刪除容器" class="headerlink" title="刪除容器"></a>刪除容器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm my_tmp_ubuntu</span><br></pre></td></tr></table></figure>
+<ul>
+<li>加上 -f 參數 : 刪除執行中的容器。</li>
+</ul>
+<p>刪除全部容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm `sudo docker ps -a -q`</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>-q : 只回容器 ID。</li>
+</ul>
+<h2 id="映像檔-Image-及-倉庫-Repository"><a href="#映像檔-Image-及-倉庫-Repository" class="headerlink" title="映像檔(Image) 及 倉庫(Repository)"></a>映像檔(Image) 及 倉庫(Repository)</h2><h3 id="倉庫"><a href="#倉庫" class="headerlink" title="倉庫"></a>倉庫</h3><p>包括映像檔，層及關於映像檔的資訊(metadata)。</p>
+<p>每個倉庫可以存放很多映像檔(不同版本)，如 ubuntu 12.04 16.04 18.04，利用 TAG 功能就可以指定到特定映像檔，如 ubuntu:16.04。</p>
+<p>Docker Hub 的用戶倉庫命名由用戶名和倉庫名組成，如 john/shoppingweb; 頂層倉庫則只包含倉庫名，如 ubuntu。</p>
+<h3 id="列出映像檔"><a href="#列出映像檔" class="headerlink" title="列出映像檔"></a>列出映像檔</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<p>列出特定映像檔<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images ubuntu</span><br></pre></td></tr></table></figure></p>
+<h3 id="拉取映像檔"><a href="#拉取映像檔" class="headerlink" title="拉取映像檔"></a>拉取映像檔</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull httpd</span><br></pre></td></tr></table></figure>
+<ul>
+<li>當 run 的時候本機還沒有所需的映像檔就會執行拉取。</li>
+</ul>
+<h3 id="查詢-Docker-Hub-上可用映像檔"><a href="#查詢-Docker-Hub-上可用映像檔" class="headerlink" title="查詢 Docker Hub 上可用映像檔"></a>查詢 Docker Hub 上可用映像檔</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search aspnetcore</span><br></pre></td></tr></table></figure>
+<h3 id="建立映像檔"><a href="#建立映像檔" class="headerlink" title="建立映像檔"></a>建立映像檔</h3><h4 id="用-docker-commit-建立異動過的映像檔"><a href="#用-docker-commit-建立異動過的映像檔" class="headerlink" title="用 docker commit 建立異動過的映像檔"></a>用 docker commit 建立異動過的映像檔</h4><p>如，在 my_ubuntu 中加入 apache2 後<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit 4aab3ce3cb76 user1/apache2</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>4aab3ce3cb76 : 容器 ID。</li>
+<li>user1/apache2 : 用戶倉庫名。</li>
+<li>commit 提交的只是建立時的映像檔和現在況態有差異的部份。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit -m &quot;Added apache&quot; -a &quot;Docker Newbee&quot; 4aab3ce3cb76 user1/apache2:v2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-m : 說明訊息。</li>
+<li>-a : 更新的使用者訊息。</li>
+</ul>
+<p>已不推薦使用 docker commit 方法，最好用 Dockerfile。</p>
+<h4 id="用-Dockerfile-來構建映像檔"><a href="#用-Dockerfile-來構建映像檔" class="headerlink" title="用 Dockerfile 來構建映像檔"></a>用 Dockerfile 來構建映像檔</h4><ul>
+<li>建立一個目錄做為構建環境。</li>
+<li>編寫 Dockerfile 文字檔 : Dockerfile 由一系列指令和參數組成。</li>
+<li>以 <code>docker build</code> 基於 Dockerfile 進行構建。<ul>
+<li>-t : 映像檔名稱</li>
+</ul>
+</li>
+</ul>
+<p>例子:</p>
+<p>Dockerfile<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Version: 0.0.1　</span><br><span class="line">FROM ubuntu:16.04</span><br><span class="line">MAINTAINER John Wick &quot;john@example.com&quot;</span><br><span class="line">RUN apt-get update &amp;&amp; apt-get install -y nginx　</span><br><span class="line">RUN echo &apos;Hi, I am in your container&apos; &gt; /usr/share/nginx/html/index.html　</span><br><span class="line">EXPOSE 80</span><br></pre></td></tr></table></figure></p>
+<p>docker build<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t=&quot;user1/static_web&quot; .</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>最後的 . 指定 Dockerfile 在同目錄中。</li>
+<li>Dockerfile 的路徑可以是 Git repository 根目錄 : git@github.com:user1/docker-static_web。</li>
+<li>Dockerfile 可以在子目錄中且不用叫 Dockerfile : path/to/file。</li>
+</ul>
+<h4 id="錯誤處理"><a href="#錯誤處理" class="headerlink" title="錯誤處理"></a>錯誤處理</h4><p>可以用 docker run 執行失敗的映像檔到已成功的部份，再手動執行出錯的命令做調試，找到正確的命令。</p>
+<h4 id="不使用暫存資料"><a href="#不使用暫存資料" class="headerlink" title="不使用暫存資料"></a>不使用暫存資料</h4><p>構建過程中，沒問題的映像會被暫存下來以加快下次執行，如果要它重頭執行不用暫存資料，加上 <code>--no-cache</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build --no-cache -t=&quot;user1/static_web&quot; .</span><br></pre></td></tr></table></figure></p>
+<h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><p>Dockerfile 由一系列指令和參數組成。每條指令，如 FROM，都必須為大寫字母，且後面要跟隨一個參數：FROM ubuntu:14.04。<br>Dockerfile 中的指令會按順序從上到下執行，所以應該根據需要合理安排指令的順序。</p>
+<p>每條指令都會創建一個新的文件層並對映像檔進行提交。Docker 大體上按照如下流程執行 Dockerfile 中的指令。</p>
+<ul>
+<li>Docker 從基礎映像檔運行一個容器。</li>
+<li>執行一條指令，對容器做出修改。</li>
+<li>執行類似 docker commit 的操作，提交一個新的文件層。</li>
+<li>Docker 再基於剛提交的映像檔運行一個新容器。</li>
+<li>執行 Dockerfile 中的下一條指令，直到所有指令都執行完畢。</li>
+</ul>
+<h3 id="註解"><a href="#註解" class="headerlink" title="註解"></a>註解</h3><p>以 <code>#</code> 開頭的就是註解內容</p>
+<h3 id="FORM"><a href="#FORM" class="headerlink" title="FORM"></a>FORM</h3><p>第一條指令必須是 <code>FROM</code>，也是唯一必填指令。<br>FROM 指定一個已經存在的映像檔，後續指令都將基於該映像檔進行，這個映像檔被稱為基礎映像檔(base iamge)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM &lt;image&gt;</span><br><span class="line">FROM &lt;image&gt;:&lt;tag&gt;</span><br><span class="line">FROM &lt;image&gt;@&lt;digest&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如:<br>FROM ubuntu:14.04。</p>
+<h3 id="MAINTAINER"><a href="#MAINTAINER" class="headerlink" title="MAINTAINER"></a>MAINTAINER</h3><p>映像檔作者資訊<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MAINTAINER &lt;作者資訊&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如:<br>MAINTAINER John Wick<br>MAINTAINER John Wick “john@example.com”</p>
+<h3 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h3><p>在映像檔中執行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RUN &lt;command&gt;</span><br><span class="line">RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>RUN \<command\>：後面的命令其實是由 /bin/sh -c 來負責執行，所以，在映像檔中必須要有/bin/sh。</command\></li>
+<li>RUN [“executable”,”param1”,”param2”]：可以執行映像檔中任意一個可執行檔或命令，[]中的內容都會按照 JSON 字串的格式進行解析，因此只能使用雙引號 “。如用 bash 來執行:<br><code>RUN [&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;echo hello&quot;]</code></li>
+<li>命令產生的結果預設會被後續所有指令重用。</li>
+</ul>
+<h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><p>用來設定映像檔預設執行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;]</span><br><span class="line">CMD [&quot;param1&quot;,&quot;param2&quot;]</span><br><span class="line">CMD command param1 param2</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>第 1 種用法：是推薦的用法，其設定的命令將作為容器啟動時的預設執行命令。</li>
+<li>第 2 種用法：param 將作為 ENTERPOINT 的預設參數使用。</li>
+<li>第 3 種用法：將後面的命令作為 shell 命令，依靠 /bin/sh –C 來執行。</li>
+<li>可以有多個 CMD，但只有最後一個 CMD 會生效。</li>
+</ul>
+<h3 id="LABEL"><a href="#LABEL" class="headerlink" title="LABEL"></a>LABEL</h3><p>用鍵值對的形式來向映像檔中添加元數據(metadata)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</span><br></pre></td></tr></table></figure></p>
+<p>如：<br>LABEL version=”1.0”</p>
+<ul>
+<li>執行完命令之後，同樣會產生一個新的文件層。</li>
+<li>新值會覆蓋舊值。</li>
+<li>可以用 Docker 的 inspec 命令查詢。</li>
+</ul>
+<h3 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h3><p>通知 Docker 容器中哪些端口是應用程序開出來監聽<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPOSE &lt;port&gt; [&lt;port&gt;...]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>容器啟動時配合 -p 或 -P 參數外部網路才可以訪問到這個 port。</li>
+</ul>
+<h3 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h3><p>設定環境變量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ENV &lt;key&gt; &lt;value&gt;</span><br><span class="line">ENV &lt;key&gt;=&lt;value&gt; ...</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>第 2 種用法：value 中存在空格時，需要使用「\」來進行轉義，如：<code>ENV myDog=Rex\ The\ Dog \</code>。</li>
+<li>可以用 Docker 的 inspec 命令查詢。</li>
+</ul>
+<h3 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h3><p>向容器中指定路徑下添加文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">COPY &lt;src&gt;... &lt;dest&gt;</span><br><span class="line">COPY [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>src 指定的路徑必須存在於 Dockerfile 所在目錄</li>
+<li>如果使用 STDIN 輸入 Dockerfile 內容，那麼 COPY 命令將失效</li>
+</ul>
+<h3 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h3><p>將 src 標記的文件，添加到容器中 dest 所標記的路徑中去<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ADD &lt;src&gt;... &lt;dest&gt;</span><br><span class="line">ADD [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>src 指定的路徑必須存在於 Dockerfile 所在目錄或指定外部 URL。</li>
+<li>dest 是指向容器中的目錄，其路徑必須是絕對路徑，或相對於 WORKDIR 的相對路徑。</li>
+<li>dest 有沒有以 “/“ 結尾會影響資料寫入的目的地。src 使用通配字元指定多個文件時，dest 必須以 “/“ 結尾的目錄。 </li>
+</ul>
+<h3 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ENTRYPOINT [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</span><br><span class="line">ENTRYPOINT command param1 param2</span><br></pre></td></tr></table></figure>
+<p>設定容器運行時預設執行程序</p>
+<ul>
+<li>第 2 種用法：將後面的命令作為 shell 命令，依靠 /bin/sh –C 來執行。</li>
+</ul>
+<p>如，MySQL官方提供的Dockerfile :<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">COPY Docker-entrypoint.sh /entrypoint.sh</span><br><span class="line">ENTRYPOINT [&quot;/entrypoint.sh&quot;]</span><br><span class="line">EXPOSE 3306</span><br><span class="line">CMD [&quot;mysqld&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>當 mysql 容器運行時，自動執行 /entrypoint.sh，而參數則是 mysqld</p>
+<h3 id="VOLUMN"><a href="#VOLUMN" class="headerlink" title="VOLUMN"></a>VOLUMN</h3><p>在容器內部創建一個指定名稱的掛載點<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VOLUME [&quot;/data&quot;]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>如果在 Dockerfile 中已經聲明了某個掛載點，那麼以後對此掛載點中文件的操作將不會生效。<br>因此，通常只會在 Dockerfile 的結尾處聲明掛載點。</li>
+</ul>
+<h3 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h3><p>切換用戶身份。當執行完命令後，後面所有的命令都將以新用戶的身份來執行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USER daemon</span><br></pre></td></tr></table></figure></p>
+<h3 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h3><p>切換當前工作目錄<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WORKDIR /path/to/workdir</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>影響到後續的 RUN、CMD、ENTRYPOINT、COPY和ADD指令中的路徑。</li>
+<li>可以在 Dockerfile 中出現多次，但最終生效的路徑是所有 WORKDIR 指定路徑的疊加 (使用相對路徑時)。</li>
+<li>只可以使用 ENV 設定的環境變量值。</li>
+</ul>
+<h3 id="ONBUILD"><a href="#ONBUILD" class="headerlink" title="ONBUILD"></a>ONBUILD</h3><p>建立觸發命令集<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ONBUILD [INSTRUCTION]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>觸發命令集在當前 Dockerfile 執行過程中不會執行，而當此鏡像被其他鏡像當作基礎鏡像使用時，將會被觸發執行。</li>
+</ul>
+<h2 id="參考資料及圖片來源"><a href="#參考資料及圖片來源" class="headerlink" title="參考資料及圖片來源"></a>參考資料及圖片來源</h2><ol>
+<li><a href="https://yeasy.gitbooks.io/docker_practice/content/" target="_blank" rel="noopener">Docker —— 從入門到實踐­ 簡中版(較新)</a>  </li>
+<li><a href="https://golang.org/pkg/text/template/" target="_blank" rel="noopener">The Go Programming Language - Package template</a>  </li>
+</ol>
+<h2 id="以上，開工吧！"><a href="#以上，開工吧！" class="headerlink" title="以上，開工吧！"></a>以上，開工吧！</h2></div><script type="text/javascript" src="/js/share.js?v=0.0.1" async></script><a data-url="https://yingclin.github.io/2018/docker-basic.html" data-id="cjmpyz6yy000d6wp8953swtkn" class="article-share-link">分享至</a><div class="tags"><a href="/tags/Docker/">Docker</a><a href="/tags/DevOps/">DevOps</a><a href="/tags/小抄/">小抄</a></div><div class="post-nav"><a href="/2018/simple-react-starter-page.html" class="next">簡單的 React 練習頁</a></div><div id="disqus_thread"><script>var disqus_shortname = 'ycl-breadcrumbs';
+var disqus_identifier = '2018/docker-basic.html';
+var disqus_title = '[小抄] Docker 基本命令';
+var disqus_url = 'https://yingclin.github.io/2018/docker-basic.html';
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//ycl-breadcrumbs.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://yingclin.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> <span class="widget_font"> 分類</span></i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/construction/">軟體構建</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/outdoor/">野日子</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> <span class="widget_font"> 標籤</span></i></div><div class="tagcloud"><a href="/tags/RESTFul/" style="font-size: 15px;">RESTFul</a> <a href="/tags/Docker/" style="font-size: 15px;">Docker</a> <a href="/tags/DevOps/" style="font-size: 15px;">DevOps</a> <a href="/tags/小抄/" style="font-size: 15px;">小抄</a> <a href="/tags/NuGet/" style="font-size: 15px;">NuGet</a> <a href="/tags/React/" style="font-size: 15px;">React</a> <a href="/tags/ASP-NET/" style="font-size: 15px;">ASP.NET</a> <a href="/tags/bot/" style="font-size: 15px;">bot</a> <a href="/tags/LINE/" style="font-size: 15px;">LINE</a> <a href="/tags/Web-API/" style="font-size: 15px;">Web API</a> <a href="/tags/API/" style="font-size: 15px;">API</a> <a href="/tags/運動會/" style="font-size: 15px;">運動會</a> <a href="/tags/NET/" style="font-size: 15px;">.NET</a> <a href="/tags/NET-Core/" style="font-size: 15px;">.NET Core</a> <a href="/tags/ASP-NET-Core/" style="font-size: 15px;">ASP.NET Core</a> <a href="/tags/Windows-10/" style="font-size: 15px;">Windows 10</a> <a href="/tags/Visual-Studio/" style="font-size: 15px;">Visual Studio</a> <a href="/tags/MVC/" style="font-size: 15px;">MVC</a> <a href="/tags/C/" style="font-size: 15px;">C#</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"><span class="widget_font"> 最新文章</span></i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/docker-basic.html">[小抄] Docker 基本命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/simple-react-starter-page.html">簡單的 React 練習頁</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/create-nuget-package-multi-projects.html">建立多專案組成的 NuGet 套件</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/build-private-nuget-server.html">使用 NuGet.Server 架設私有的 NuGet 伺服器</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/create-nuget-package.html">由類別庫建立 NuGet 套件</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/using-csharp-6-7-with-mvc-5.html">[小抄] 在 ASP.NET MVC 5 的 View 中使用 C# 6 或 C# 7 語法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/aspnetcode-2.0-toturial.html">ASP.NET Core 2.0 開發入門</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/windows-10-vs-old-projects-tips.html">新 Windows 10 對上 ASP.NET 舊專案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/net-code-2-introduction.html">準備就緒的 .NET Core 2.0 來了</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/2017-taipei-fisu-broadcast.html">2017 台北世大運 線上直播</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">想不起來而已.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.1" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.1" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.1"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create','UA-67006685-1','auto');ga('send','pageview');
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.1"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.1"></script></div></body></html>
