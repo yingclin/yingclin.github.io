@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://yingclin.github.io/2018/efcore-create-table-from-aspnetcore.html</loc>
+    
+    <lastmod>2018-10-17T04:01:48.157Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://yingclin.github.io/2018/create-oracle-docker-container.html</loc>
     
     <lastmod>2018-10-02T01:37:05.958Z</lastmod>
