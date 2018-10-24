@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://yingclin.github.io/2018/migrate-from-aspnetcore20-to21.html</loc>
+    
+    <lastmod>2018-10-22T10:30:05.366Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://yingclin.github.io/2018/efcore-create-table-from-aspnetcore.html</loc>
     
     <lastmod>2018-10-19T09:12:46.182Z</lastmod>
