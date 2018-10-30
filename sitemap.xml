@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://yingclin.github.io/about/index.html</loc>
+    
+    <lastmod>2018-10-30T06:56:58.350Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://yingclin.github.io/2018/netcore-mongodb-demo.html</loc>
+    
+    <lastmod>2018-10-30T06:20:56.566Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://yingclin.github.io/2018/migrate-from-aspnetcore20-to21.html</loc>
     
-    <lastmod>2018-10-22T10:30:05.366Z</lastmod>
+    <lastmod>2018-10-30T06:10:32.349Z</lastmod>
     
   </url>
   
@@ -124,13 +138,6 @@
     <loc>https://yingclin.github.io/2017/2017-taipei-fisu-broadcast.html</loc>
     
     <lastmod>2017-08-24T06:41:28.651Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://yingclin.github.io/about/index.html</loc>
-    
-    <lastmod>2016-06-04T07:45:30.326Z</lastmod>
     
   </url>
   
