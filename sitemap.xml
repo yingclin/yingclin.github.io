@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://yingclin.github.io/2019/practical-aspnetcore-010.html</loc>
+    
+    <lastmod>2019-04-30T07:58:20.957Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://yingclin.github.io/2018/tls12-dotnet.html</loc>
     
     <lastmod>2018-12-11T06:53:40.815Z</lastmod>
