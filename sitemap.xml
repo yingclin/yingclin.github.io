@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://yingclin.github.io/2019/install-netcore3-in-linux-globally.html</loc>
+    
+    <lastmod>2019-09-04T08:59:42.300Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://yingclin.github.io/2019/windows-services-or-linux-systemd-in-netcore.html</loc>
     
     <lastmod>2019-09-03T02:38:41.679Z</lastmod>
